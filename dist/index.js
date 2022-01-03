@@ -8454,10 +8454,12 @@ try {
   const github_token = core.getInput("GITHUB_TOKEN")
   const octokit = new Octokit({ auth: github_token })
 
-  const response = octokit
-    .request("GET /orgs/foretheta/repos", {
-      org: "foretheta",
-      type: "private",
+  octokit
+    .request("GET /repos/foretheta/repos/milestones", {
+      owner: "foretheta",
+      repo: "devops",
+      title: "Sprint(9/11)-A",
+      due_on: due_date.toISOString(),
     })
     .then((text) => {
       console.log(JSON.stringify(text))
