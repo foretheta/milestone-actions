@@ -8455,12 +8455,19 @@ try {
 
   let due_date = new Date("30 January 2021")
 
-  octokit.rest.issues.createMilestone({
-    owner: "octocat",
-    repo: "devops",
-    title: "Sprint(9/11)-a",
-    due_on: due_date.toISOString(),
-  })
+  octokit.rest.issues
+    .createMilestone({
+      owner: "octocat",
+      repo: "devops",
+      title: "Sprint(9/11)-a",
+      due_on: due_date.toISOString(),
+    })
+    .then((data) => {
+      console.log("Done")
+    })
+    .catch((e) => {
+      core.setFailed(error.message)
+    })
 } catch (error) {
   core.setFailed(error.message)
 }
