@@ -8465,7 +8465,7 @@ try {
     .then((data) => {
       console.log("Done")
     })
-    .catch((e) => {
+    .catch((error) => {
       core.setFailed(error.message)
     })
 } catch (error) {
