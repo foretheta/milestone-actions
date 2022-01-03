@@ -3,10 +3,7 @@ const github = require("@actions/github")
 
 try {
   const github_token = core.getInput("GITHUB_TOKEN")
-  const requiredLabels = core.getInput("labels").split(",")
-  const labelsInIssue = github.context.payload.issue.labels.map((label) => {
-    return label.name
-  })
+
   const octokit = github.getOctokit(github_token)
 
   octokit.rest.issues.createMilestone({
