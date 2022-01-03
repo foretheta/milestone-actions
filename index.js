@@ -6,8 +6,9 @@ try {
   const payload = JSON.stringify(github.context.payload, undefined, 2)
   console.log(`The event payload: ${payload}`)
 
-  const myToken = core.getInput("GITHUB_TOKEN")
-  const octokit = github.getOctokit(myToken)
+  const github_token = core.getInput("GITHUB_TOKEN")
+  const octokit = github.getOctokit(github_token)
+
   let due_date = new Date("30 January 2021")
 
   octokit.rest.issues.createMilestone({
