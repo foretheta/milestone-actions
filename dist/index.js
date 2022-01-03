@@ -8451,8 +8451,8 @@ try {
   const octokit = github.getOctokit(github_token)
 
   octokit.rest.issues.createMilestone({
-    owner: github.context.repo.owner,
-    repo: github.context.repo.repo,
+    owner: "foretheta",
+    repo: "devops",
     title: "HEY",
   })
 } catch (error) {
