@@ -8448,7 +8448,7 @@ const github = __nccwpck_require__(3134)
 try {
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload, undefined, 2)
-  console.log(`The event payload: ${payload}`)
+  //   console.log(`The event payload: ${payload}`)
 
   const github_token = core.getInput("GITHUB_TOKEN")
   const octokit = github.getOctokit(github_token)
@@ -8459,14 +8459,14 @@ try {
     .createMilestone({
       owner: "foretheta",
       repo: "devops",
-      title: "Sprint(9/11)-a",
+      title: "Sprint(9/11)-A",
       due_on: due_date.toISOString(),
     })
     .then((data) => {
       console.log("Done")
     })
     .catch((error) => {
-      core.setFailed(error.message)
+      core.setFailed(JSON.stringify(error))
     })
 } catch (error) {
   core.setFailed(error.message)
