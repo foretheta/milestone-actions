@@ -18,7 +18,7 @@ async function run() {
 
   octokit.rest.issues.createMilestone({
     owner: "foretheta",
-    repo: "devops",
+    repo: "required-labels",
     title: "HEY!",
   })
 }
