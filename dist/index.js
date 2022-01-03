@@ -50653,10 +50653,10 @@ async function run() {
     let due_date = new Date("30 January 2021")
 
     const { data } = await octokit.request(
-      "POST /repos/foretheta/devops/milestones",
+      "POST /repos/foretheta/required-labels/milestones",
       {
         owner: github.context.repo.owner,
-        repo: "devops",
+        repo: "required-labels",
         title: "Sprint(9/11)-A",
         due_on: due_date.toISOString(),
       }
