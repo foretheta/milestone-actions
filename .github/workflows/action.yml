@@ -3,7 +3,11 @@
 
 name: Milestone Action
 
-on: [push]
+on:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    # First day of the month
+    - cron: "0 0 1 * *"
 
 jobs:
   create-milestone:
