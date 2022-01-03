@@ -1,0 +1,9 @@
+on: [push]
+
+jobs:
+  creation-milestone:
+    runs-on: ubuntu-latest
+    name: Create Milestone
+    steps:
+      - name: Call the action
+        uses: foretheta/milestone-actions@master
