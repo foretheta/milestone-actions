@@ -1,28 +1,19 @@
 const core = require("@actions/core")
-import * as github from "@actions/github"
-const { Octokit } = require("@octokit/rest")
-import { createActionAuth } from "@octokit/auth-action"
+const github = require("@actions/github")
 
-async function run() {
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
+try {
   const github_token = core.getInput("GITHUB_TOKEN")
-
-  let due_date = new Date("30 January 2021")
-
-  const auth = createActionAuth()
-  const authentication = await auth()
-
-  await console.log(authentication)
-
-  const octokit = new Octokit()
+  const requiredLabels = core.getInput("labels").split(",")
+  const labelsInIssue = github.context.payload.issue.labels.map((label) => {
+    return label.name
+  })
+  const octokit = github.getOctokit(github_token)
 
   octokit.rest.issues.createMilestone({
-    owner: "foretheta",
-    repo: "required-labels",
-    title: "HEY!",
+    owner: github.context.repo.owner,
+    repo: github.context.repo.repo,
+    title: "HEY",
   })
-}
-
-run().catch((error) => {
+} catch (error) {
   core.setFailed(error.message)
-})
+}
