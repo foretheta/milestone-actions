@@ -50651,19 +50651,14 @@ try {
 
   let due_date = new Date("30 January 2021")
 
-  const { data } = octokit
-    .request("POST /repos/foretheta/devops/milestones", {
-      owner: github.context.repo.owner,
-      repo: "devops",
-      title: "Sprint(9/11)-A",
-      due_on: due_date.toISOString(),
-    })
-    .then(() => {
-      console.log("Milestone Created: %s", data.html_url)
-    })
-    .error(() => {
-      console.log("error")
-    })
+  const { data } = octokit.request("POST /repos/foretheta/devops/milestones", {
+    owner: github.context.repo.owner,
+    repo: "devops",
+    title: "Sprint(9/11)-A",
+    due_on: due_date.toISOString(),
+  })
+
+  console.log("Milestone Created: %s", data.html_url)
 } catch (error) {
   core.setFailed(error.message)
 }
