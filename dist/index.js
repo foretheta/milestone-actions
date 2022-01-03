@@ -8602,9 +8602,7 @@ async function run() {
 
   await console.log(authentication)
 
-  const octokit = new Octokit({
-    auth: authentication,
-  })
+  const octokit = new Octokit()
 
   octokit.rest.issues.createMilestone({
     owner: "foretheta",
