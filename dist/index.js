@@ -8601,6 +8601,16 @@ async function run() {
   const authentication = await auth()
 
   await console.log(authentication)
+
+  const octokit = new Octokit({
+    auth: authentication,
+  })
+
+  octokit.rest.issues.createMilestone({
+    owner: "foretheta",
+    repo: "devops",
+    title: "HEY!",
+  })
 }
 
 run().catch((error) => {
