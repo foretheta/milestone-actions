@@ -8457,8 +8457,8 @@ try {
 
   octokit.rest.issues
     .createMilestone({
-      owner: "octocat",
-      repo: "devops",
+      owner: "muhaddimu",
+      repo: "foretheta/devops",
       title: "Sprint(9/11)-a",
       due_on: due_date.toISOString(),
     })
