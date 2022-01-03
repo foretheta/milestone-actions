@@ -18,7 +18,7 @@ try {
     due_on: due_date.toISOString(),
   })
 
-  console.log("Milestone Created: %s", data.html_url)
+  console.log("Milestone Created: %s", data)
 } catch (error) {
   core.setFailed(error.message)
 }
