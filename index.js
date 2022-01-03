@@ -13,8 +13,8 @@ try {
 
   octokit.rest.issues
     .createMilestone({
-      owner: "muhaddimu",
-      repo: "foretheta/devops",
+      owner: "foretheta",
+      repo: "devops",
       title: "Sprint(9/11)-a",
       due_on: due_date.toISOString(),
     })
