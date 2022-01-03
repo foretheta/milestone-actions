@@ -8451,11 +8451,13 @@ try {
   //   console.log(`The event payload: ${payload}`)
 
   const github_token = core.getInput("GITHUB_TOKEN")
-  const octokit = github.getOctokit(github_token)
+  //   const octokit = github.getOctokit(github_token)
+
+  const client = new github.GitHub(github_token)
 
   let due_date = new Date("30 January 2021")
 
-  octokit.rest.issues
+  client.issues
     .createMilestone({
       owner: "foretheta",
       repo: "devops",
@@ -8463,7 +8465,7 @@ try {
       due_on: due_date.toISOString(),
     })
     .then((data) => {
-      console.log("Done")
+      console.log(JSON.stringify(data))
     })
     .catch((error) => {
       core.setFailed(JSON.stringify(error))
