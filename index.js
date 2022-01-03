@@ -9,6 +9,7 @@ try {
 
   const github_token = core.getInput("GITHUB_TOKEN")
   const octokit = new Octokit({ auth: github_token })
+  let due_date = new Date("30 January 2021")
 
   octokit
     .request("GET /repos/foretheta/repos/milestones", {
@@ -23,22 +24,6 @@ try {
     .catch((err) => {
       console.log(JSON.stringify(err))
     })
-
-  let due_date = new Date("30 January 2021")
-
-  //   octokit.request
-  //     .createMilestone({
-  //       owner: "foretheta",
-  //       repo: "devops",
-  //       title: "Sprint(9/11)-A",
-  //       due_on: due_date.toISOString(),
-  //     })
-  //     .then((data) => {
-  //       console.log("Done")
-  //     })
-  //     .catch((error) => {
-  //       core.setFailed(JSON.stringify(error))
-  //     })
 } catch (error) {
   core.setFailed(error.message)
 }
