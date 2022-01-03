@@ -1490,6 +1490,42 @@ exports.checkBypass = checkBypass;
 
 /***/ }),
 
+/***/ 3417:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+__webpack_unused_export__ = ({ value: true });
+
+var authToken = __nccwpck_require__(8426);
+
+const createActionAuth = function createActionAuth() {
+  if (!process.env.GITHUB_ACTION) {
+    throw new Error("[@octokit/auth-action] `GITHUB_ACTION` environment variable is not set. @octokit/auth-action is meant to be used in GitHub Actions only.");
+  }
+
+  const definitions = [process.env.GITHUB_TOKEN, process.env.INPUT_GITHUB_TOKEN, process.env.INPUT_TOKEN].filter(Boolean);
+
+  if (definitions.length === 0) {
+    throw new Error("[@octokit/auth-action] `GITHUB_TOKEN` variable is not set. It must be set on either `env:` or `with:`. See https://github.com/octokit/auth-action.js#createactionauth");
+  }
+
+  if (definitions.length > 1) {
+    throw new Error("[@octokit/auth-action] The token variable is specified more than once. Use either `with.token`, `with.GITHUB_TOKEN`, or `env.GITHUB_TOKEN`. See https://github.com/octokit/auth-action.js#createactionauth");
+  }
+
+  const token = definitions.pop();
+  return authToken.createTokenAuth(token);
+};
+
+exports.C = createActionAuth;
+//# sourceMappingURL=index.js.map
+
+
+/***/ }),
+
 /***/ 8426:
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -8273,6 +8309,14 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 5318:
+/***/ ((module) => {
+
+module.exports = eval("require")("@octokit/rest");
+
+
+/***/ }),
+
 /***/ 2431:
 /***/ ((module) => {
 
@@ -8434,43 +8478,79 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__nccwpck_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__nccwpck_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__nccwpck_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__nccwpck_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/compat */
 /******/ 	
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
+"use strict";
+__nccwpck_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(3134);
+/* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_github__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _octokit_auth_action__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(3417);
 const core = __nccwpck_require__(5127)
-const github = __nccwpck_require__(3134)
-const { Octokit } = __nccwpck_require__(6461)
+;
+const { Octokit } = __nccwpck_require__(5318)
+;
 
-try {
-  // Get the JSON webhook payload for the event that triggered the workflow
-  const payload = JSON.stringify(github.context.payload, undefined, 2)
-  //   console.log(`The event payload: ${payload}`)
-
+async function run() {
+  const payload = JSON.stringify(_actions_github__WEBPACK_IMPORTED_MODULE_0__.context.payload, undefined, 2)
   const github_token = core.getInput("GITHUB_TOKEN")
-  const octokit = new Octokit({ auth: github_token })
+
   let due_date = new Date("30 January 2021")
 
-  octokit
-    .request("GET /repos/foretheta/repos/milestones", {
-      owner: "foretheta",
-      repo: "devops",
-      title: "Sprint(9/11)-A",
-      due_on: due_date.toISOString(),
-    })
-    .then((text) => {
-      console.log(JSON.stringify(text))
-    })
-    .catch((err) => {
-      console.log(JSON.stringify(err))
-    })
-} catch (error) {
-  core.setFailed(error.message)
+  const auth = (0,_octokit_auth_action__WEBPACK_IMPORTED_MODULE_1__/* .createActionAuth */ .C)()
+  const authentication = await auth()
+
+  await console.log(authentication)
 }
+
+run().catch((error) => {
+  core.setFailed(error.message)
+})
 
 })();
 
