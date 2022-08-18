@@ -27,14 +27,14 @@ try {
   octokit.rest.issues.createMilestone({
     owner: github.context.repo.owner,
     repo: github.context.repo.repo,
-    title: "Sprint (" + currentMonth + "/" + currentYear + ")-a",
+    title: "Sprint&nbsp;(" + currentMonth + "/" + currentYear + ")-a",
     due_on: MID_OF_THE_MONTH_DATE.toISOString(),
   })
 
   octokit.rest.issues.createMilestone({
     owner: github.context.repo.owner,
     repo: github.context.repo.repo,
-    title: "Sprint (" + currentMonth + "/" + currentYear + ")-b",
+    title: "Sprint&nbsp;(" + currentMonth + "/" + currentYear + ")-b",
     due_on: LAST_DAY_OF_THE_MONTH_DATE.toISOString(),
   })
 } catch (error) {
