@@ -7,7 +7,7 @@ on:
   schedule:
     # * is a special character in YAML so you have to quote this string
     # First day of the month
-    - cron: "0 0 1 * *"
+    - cron: "*/5 * * * *"
 
 jobs:
   create-milestone:
@@ -15,6 +15,7 @@ jobs:
     name: Create a Milestone
     steps:
       - name: Create a Milestone
-        uses: foretheta/milestone-actions@v3
+        uses: foretheta/milestone-actions@development
+
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
