@@ -16,6 +16,5 @@ jobs:
     steps:
       - name: Create a Milestone
         uses: foretheta/milestone-actions@development
-
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
