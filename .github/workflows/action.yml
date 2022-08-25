@@ -16,11 +16,6 @@ jobs:
     name: Create a Milestone
     steps:
       - name: Create a Milestone
-<<<<<<< Updated upstream
-        uses: foretheta/milestone-actions@development
-
-=======
         uses: foretheta/milestone-actions@v3
->>>>>>> Stashed changes
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
