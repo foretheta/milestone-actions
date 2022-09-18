@@ -13,6 +13,8 @@ try {
 
   const maxMilestoneNumber = Math.max(...milestones.map(m => m.number))
 
+  const currentDate = new Date()
+
   const latestMilestone = milestones.find(m => m.number === maxMilestoneNumber)
   const currentDueDate = new Date(latestMilestone.due_on)
   const adjustHourDate = new Date(new Date(currentDueDate).setHours(currentDueDate.getHours() + 2))
@@ -22,27 +24,30 @@ try {
   let currentDueDateMonth = currentDueDate.getMonth()
   let nextDueDateMonth = new Date(nextDueDate).getMonth()
 
-  if (latestMilestone.title.includes("-a") && currentDueDateMonth === nextDueDateMonth) {
-    octokit.rest.issues.createMilestone({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      title: "Sprint (" + (nextDueDateMonth + 1).toString() + "/" + nextDueYear + ")-b",
-      due_on: new Date(nextDueDate).toISOString(),
-    })
-  } else if (latestMilestone.title.includes("-b") && currentDueDateMonth === nextDueDateMonth) {
-    octokit.rest.issues.createMilestone({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      title: "Sprint (" + (nextDueDateMonth + 1).toString() + "/" + nextDueYear + ")-c",
-      due_on: new Date(nextDueDate).toISOString(),
-    })
-  } else if (currentDueDateMonth !== nextDueDateMonth) {
-    octokit.rest.issues.createMilestone({
-      owner: github.context.repo.owner,
-      repo: github.context.repo.repo,
-      title: "Sprint (" + (nextDueDateMonth + 1).toString() + "/" + nextDueYear + ")-a",
-      due_on: new Date(nextDueDate).toISOString(),
-    })
+  const diffDays = Math.ceil(Math.abs(nextDueDate - currentDate) / (1000*60 * 60 * 24))
+  if (diffDays < 20) {
+    if (latestMilestone.title.includes("-a") && currentDueDateMonth === nextDueDateMonth) {
+      octokit.rest.issues.createMilestone({
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
+        title: "Sprint (" + (nextDueDateMonth + 1).toString() + "/" + nextDueYear + ")-b",
+        due_on: new Date(nextDueDate).toISOString(),
+      })
+    } else if (latestMilestone.title.includes("-b") && currentDueDateMonth === nextDueDateMonth) {
+      octokit.rest.issues.createMilestone({
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
+        title: "Sprint (" + (nextDueDateMonth + 1).toString() + "/" + nextDueYear + ")-c",
+        due_on: new Date(nextDueDate).toISOString(),
+      })
+    } else if (currentDueDateMonth !== nextDueDateMonth) {
+      octokit.rest.issues.createMilestone({
+        owner: github.context.repo.owner,
+        repo: github.context.repo.repo,
+        title: "Sprint (" + (nextDueDateMonth + 1).toString() + "/" + nextDueYear + ")-a",
+        due_on: new Date(nextDueDate).toISOString(),
+      })
+    }
   }
 } catch (error) {
   core.setFailed(error.message)
