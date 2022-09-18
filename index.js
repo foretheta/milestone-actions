@@ -6,7 +6,7 @@ try {
 
   const octokit = github.getOctokit(github_token)
 
-  const milestones = octokit.rest.issues.listMilestones({
+  const milestones = await octokit.rest.issues.listMilestones({
     owner: github.context.repo.owner,
     repo: github.context.repo.repo
   })
