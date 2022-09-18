@@ -11,6 +11,8 @@ try {
     repo: github.context.repo.repo
   })
 
+  console.log(milestones)
+
   const maxMilestoneNumber = Math.max(...milestones.map(m => m.number))
 
   const currentDate = new Date()
