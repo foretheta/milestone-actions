@@ -3,11 +3,11 @@
 
 name: Milestone Action
 
-on: [push]
-  # schedule:
-    # * is a special character in YAML so you have to quote this string
-    # Every Tuesday at 4AM
-    # - cron: "0 0 3 ? * MON *"
+on:
+  schedule:
+    * is a special character in YAML so you have to quote this string
+    Every Monday at 3 AM
+    - cron: "0 0 3 ? * MON *"
 
 jobs:
   create-milestone:
@@ -15,6 +15,6 @@ jobs:
     name: Create a Milestone
     steps:
       - name: Create a Milestone
-        uses: foretheta/milestone-actions@fix-sprintDueDate
+        uses: foretheta/milestone-actions@v4
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
