@@ -3,4 +3,4 @@ description: "Programtically create milestones every month with due dates"
 
 runs:
   using: "node12"
-  main: "dist/index.js"
+  main: "index.js"
